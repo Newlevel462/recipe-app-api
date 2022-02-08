@@ -10,6 +10,9 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
+# SUPERUSER - newlevel462@yahoo.com NewPassword1
+# new test@londonappdev.com Awesome1 e5ae372e47f938e74976b1acadd3f17b84e3981c
+
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -37,7 +40,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'rest_framework.authtoken',
     'core',
+    'user',
 ]
 
 MIDDLEWARE = [
