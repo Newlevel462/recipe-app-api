@@ -11,7 +11,8 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 # SUPERUSER - newlevel462@yahoo.com NewPassword1
-# new test@londonappdev.com Awesome1 e5ae372e47f938e74976b1acadd3f17b84e3981c
+# new test@londonappdev.com Awesome1 de68f52e406c5bc989d2f56c6d0f467da4ec2de6
+# address is http://127.0.0.1:8000/api/user/ 
 
 import os
 
@@ -44,7 +45,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'core',
     'user',
-    'recipe', 
+    'recipe',
 ]
 
 MIDDLEWARE = [
