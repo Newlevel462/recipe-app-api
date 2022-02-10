@@ -11,13 +11,6 @@ TOKEN_URL = reverse('user:token')
 ME_URL = reverse('user:me')
 
 
-def test_retrieve_user_unauthorized(self):
-        """Test that authentication required for users"""
-        res = self.client.get(ME_URL)
-
-        self.assertEqual(res.status_code, status.HTTP_401_UNAUTHORIZED)
-
-
 def create_user(**params):
     """Helper function to create new user"""
     return get_user_model().objects.create_user(**params)
@@ -33,8 +26,8 @@ class PublicUserApiTests(TestCase):
         """Test creating using with a valid payload is successful"""
         payload = {
             'email': 'test@londonappdev.com',
-            'password': 'testpass',
-            'name': 'name',
+            'password': 'pw',
+            'name': 'test',
         }
         res = self.client.post(CREATE_USER_URL, payload)
 
@@ -45,7 +38,7 @@ class PublicUserApiTests(TestCase):
 
     def test_user_exists(self):
         """Test creating a user that already exists fails"""
-        payload = {'email': 'test@londonappdev.com', 'password': 'testpass'}
+        payload = {'email': 'test@londonappdev.com', 'pw': 'Test'}
         create_user(**payload)
         res = self.client.post(CREATE_USER_URL, payload)
 
