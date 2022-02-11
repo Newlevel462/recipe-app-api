@@ -1,18 +1,14 @@
-import tempfile
 import os
+import tempfile
 
 from PIL import Image
-
+from core.models import Recipe, Tag, Ingredient
 from django.contrib.auth import get_user_model
 from django.test import TestCase
 from django.urls import reverse
-
+from recipe.serializers import RecipeSerializer, RecipeDetailSerializer
 from rest_framework import status
 from rest_framework.test import APIClient
-
-from core.models import Recipe, Tag, Ingredient
-from recipe.serializers import RecipeSerializer, RecipeDetailSerializer
-
 
 RECIPES_URL = reverse('recipe:recipe-list')
 
@@ -205,20 +201,19 @@ class PrivateRecipeApiTests(TestCase):
 
 class RecipeImageUploadTests(TestCase):
 
-    def setUp(self):
+    def setUp(self) -> None:
         self.client = APIClient()
         self.user = get_user_model().objects.create_user(
-            'user@londonappdev.com',
-            'testpass'
+            'test@abc.com',
+            'test1234'
         )
         self.client.force_authenticate(self.user)
         self.recipe = sample_recipe(user=self.user)
 
-    def tearDown(self):
+    def tearDown(self) -> None:
         self.recipe.image.delete()
 
     def test_upload_image_to_recipe(self):
-        """Test uploading an image to recipe"""
         url = image_upload_url(self.recipe.id)
         with tempfile.NamedTemporaryFile(suffix='.jpg') as ntf:
             img = Image.new('RGB', (10, 10))
@@ -235,7 +230,6 @@ class RecipeImageUploadTests(TestCase):
         """Test uploading an invalid image"""
         url = image_upload_url(self.recipe.id)
         res = self.client.post(url, {'image': 'notimage'}, format='multipart')
-
         self.assertEqual(res.status_code, status.HTTP_400_BAD_REQUEST)
 
     def test_filter_recipes_by_tags(self):
@@ -250,7 +244,8 @@ class RecipeImageUploadTests(TestCase):
 
         res = self.client.get(
             RECIPES_URL,
-            {'tags': f'{tag1.id},{tag2.id}'}
+            {'tags': f'{tag1.id}, {tag2.id}'}
+
         )
 
         serializer1 = RecipeSerializer(recipe1)
@@ -272,7 +267,7 @@ class RecipeImageUploadTests(TestCase):
 
         res = self.client.get(
             RECIPES_URL,
-            {'ingredients': f'{ingredient1.id},{ingredient2.id}'}
+            {'ingredients': f'{ingredient1.id}, {ingredient2.id}'}
         )
 
         serializer1 = RecipeSerializer(recipe1)

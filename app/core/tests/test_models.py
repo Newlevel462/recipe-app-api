@@ -1,8 +1,9 @@
+from unittest.mock import patch
+
 from django.test import TestCase
 from django.contrib.auth import get_user_model
 
 from core import models
-from unittest.mock import patch
 
 
 def sample_user(email='test@londonappdev.com', password='testpass'):
@@ -74,7 +75,6 @@ class ModelTests(TestCase):
         )
 
         self.assertEqual(str(recipe), recipe.title)
-
 
     @patch('uuid.uuid4')
     def test_recipe_file_name_uuid(self, mock_uuid):
