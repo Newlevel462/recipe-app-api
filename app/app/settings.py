@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 
 # SUPERUSER - newlevel462@yahoo.com NewPassword1
 # new test@londonappdev.com Awesome1 de68f52e406c5bc989d2f56c6d0f467da4ec2de6
-# address is http://127.0.0.1:8000/api/user/ 
+# address is http://127.0.0.1:8000/api/user/
 
 import os
 
@@ -130,5 +130,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+MEDIA_URL = '/media/'
+
+MEDIA_ROOT = '/vol/web/media'
+STATIC_ROOT = '/vol/web/static'
 
 AUTH_USER_MODEL = 'core.User'
